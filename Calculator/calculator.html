@@ -4,64 +4,8 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Calculator Logic with Javascript</title>
-    <style>
-      :root {
-        --main-bg: #131320;
-        --main-color: #1eae72;
-        --main-border: #259c4f;
-      }
-      body {
-        background-color: #0d1e2b;
-      }
-
-      main {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-items: center;
-        color: var(--main-color);
-      }
-
-      .form {
-        background-color: var(--main-bg);
-        padding: 0.5rem;
-        border-radius: 0.5rem;
-      }
-
-      .form > #result {
-        background-color: transparent;
-        border: 1px var(--main-border) solid;
-        border-radius: 0.15rem 0.25rem;
-        box-sizing: border-box;
-        color: var(--main-color);
-        width: 100%;
-        padding: 0 0.25rem;
-        font-size: 1.25rem;
-      }
-
-      .form {
-        padding-top: 0.5rem;
-        display: grid;
-        grid-template-areas:
-          "r r r r"
-          "c c b b"
-          "se e n d"
-          "f fi s mu"
-          "o t th m"
-          "z z eq p";
-        grid-gap: 0.15rem;
-      }
-
-      .form > .button {
-        background-color: transparent;
-        border: 1px var(--main-border) solid;
-        color: var(--main-color);
-        border-radius: 0.25rem;
-        padding: 0.15rem 1rem;
-        font-size: 1.5rem;
-      }
-    </style>
+    <title>Calculator</title>
+    <link rel="stylesheet" type="text/css" href="assets/styles.css" />
   </head>
   <body>
     <main>
@@ -193,65 +137,16 @@
           onclick="backspace()"
           class="button"
         />
+        <input
+          style="grid-area: do"
+          type="button"
+          value="."
+          onclick="appendNumber('.')"
+          class="button"
+        />
       </div>
     </main>
 
-    <script>
-      let currentInput = "";
-      let currentOperator = "";
-      let numbers = "0";
-
-      document.getElementById("result").value = "0";
-
-      function appendNumber(number) {
-        currentInput += number;
-        numbers += number;
-        currentOperator = "";
-        if (numbers.startsWith("0")) {
-          numbers = numbers.substring(1);
-        }
-        document.getElementById("result").value = numbers;
-        document.getElementById("result").selectionStart =
-          document.getElementById("result").selectionEnd.length;
-      }
-
-      function operator(opr) {
-        currentOperator = opr;
-        currentInput += currentOperator;
-        numbers = "0";
-        document.getElementById("result").value = numbers;
-      }
-
-      function equals() {
-        let result = eval(currentInput);
-        if (!result) {
-          result = "Error";
-        }
-        document.getElementById("result").value = result;
-        currentInput = result.toString();
-        currentOperator = "";
-      }
-
-      function clearInput() {
-        document.getElementById("result").value = "0";
-        currentInput = "";
-        currentOperator = "";
-        numbers = "0";
-      }
-
-      function backspace() {
-        if (
-          currentInput.length > 0 &&
-          currentInput != "0" &&
-          currentOperator == ""
-        ) {
-          currentInput = currentInput.substring(0, currentInput.length - 1);
-        }
-        if (currentOperator == "" && numbers.length > 0) {
-          numbers = numbers.substring(0, numbers.length - 1);
-        }
-        document.getElementById("result").value = numbers;
-      }
-    </script>
+    <script src="assets/script.js"></script>
   </body>
 </html>
