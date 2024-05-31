@@ -44,7 +44,8 @@
         padding-top: 0.5rem;
         display: grid;
         grid-template-areas:
-          "r r r c"
+          "r r r r"
+          "c c b b"
           "se e n d"
           "f fi s mu"
           "o t th m"
@@ -185,6 +186,13 @@
           onclick="clearInput()"
           class="button"
         />
+        <input
+          style="grid-area: b; box-sizing: border-box"
+          type="button"
+          value="CE"
+          onclick="backspace()"
+          class="button"
+        />
       </div>
     </main>
 
@@ -198,10 +206,13 @@
       function appendNumber(number) {
         currentInput += number;
         numbers += number;
+        currentOperator = "";
         if (numbers.startsWith("0")) {
           numbers = numbers.substring(1);
         }
         document.getElementById("result").value = numbers;
+        document.getElementById("result").selectionStart =
+          document.getElementById("result").selectionEnd.length;
       }
 
       function operator(opr) {
@@ -226,6 +237,20 @@
         currentInput = "";
         currentOperator = "";
         numbers = "0";
+      }
+
+      function backspace() {
+        if (
+          currentInput.length > 0 &&
+          currentInput != "0" &&
+          currentOperator == ""
+        ) {
+          currentInput = currentInput.substring(0, currentInput.length - 1);
+        }
+        if (currentOperator == "" && numbers.length > 0) {
+          numbers = numbers.substring(0, numbers.length - 1);
+        }
+        document.getElementById("result").value = numbers;
       }
     </script>
   </body>
